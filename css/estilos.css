@@ -1,7 +1,10 @@
 body{
+    background-color: #00594c;
     font-family: 'Georgia', sans-serif;
+    color: white;
 }
 .form-container {
+    color: black;
     max-width: 600px;
     margin: auto;
     padding: 20px;
@@ -11,7 +14,7 @@ body{
     font-family: 'Georgia', sans-serif;
 }
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
 }
@@ -86,4 +89,7 @@ input.radio{
 }
 footer{
     font-family: Calibri, sans-serif;
+}
+.line{
+    margin-left: -35px;
 }
