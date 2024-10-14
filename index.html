@@ -68,7 +68,7 @@
             
             <div class="form-group">
                 <fieldset class="field2"> <!-- CUADRO CON OBSERVADOR  -->
-                    <legend>OBSERVADOR</legend> 
+                    <legend><b>OBSERVADOR</b></legend> 
                     <div>
                         <input class="observador" type="text" id="nombre" name="nombre" placeholder="Nombre" style="width:55%" required>
                         <input class="observador" type="number" id="matricula" name="matricula" placeholder="Matrícula" style="width:35%" required>
@@ -81,7 +81,7 @@
             <center>
             <div class="form-group" style="margin-top:20PX; margin-bottom: 10px; align-items: center;">
                 <fieldset class="field2">
-                    <label for="oportunidad">OPORTUNIDAD: </label>
+                    <label for="oportunidad"><b>OPORTUNIDAD: </b></label>
                     <input id="1" type="checkbox" name="oportunidad" checked>  1
                     <input id="2" type="checkbox" name="oportunidad" disabled>  2
                     <input id="3" type="checkbox" name="oportunidad" disabled>  3
@@ -127,15 +127,15 @@
             
             <fieldset id="field1" class="field1"> <!-- CUADRO CON INDICACIONES -->
                 <legend>Indicación:</legend>
-                <div><input type="radio" name="indicacion" value="ant pac" required /> Ant. pac.</label></div>
-                <div><input type="radio" name="indicacion" value="ant asept" /> Ant. asept.</label></div>
-                <div><input type="radio" name="indicacion" value="desp ent pac" /> Desp. ent. p.</label></div>
-                <div><input type="radio" name="indicacion" value="desp pac" /> Desp. pac.</label></div>
-                <div><input type="radio" name="indicacion" value="desp secre" /> Desp. fc.</label></div>
+                <div><input id="indicacion1" type="checkbox" name="indicacion" value="ant pac" /> Ant. pac.</label></div>
+                <div><input id="indicacion2" type="checkbox" name="indicacion" value="ant asept" /> Ant. asept.</label></div>
+                <div><input id="indicacion3" type="checkbox" name="indicacion" value="desp ent pac" /> Desp. ent. p.</label></div>
+                <div><input id="indicacion4" type="checkbox" name="indicacion" value="desp pac" /> Desp. pac.</label></div>
+                <div><input id="indicacion5" type="checkbox" name="indicacion" value="desp secre" /> Desp. fc.</label></div>
             </fieldset>
             <fieldset id="field2" class="field1"> <!-- CUADRO CON ACCIONES -->
                 <legend>Acción de HM:</legend>
-                <div><input type="radio" name="accion" value="FM" id="fm" required /> FM</label></div>
+                <div><input type="radio" name="accion" value="FM" id="fm" /> FM</label></div>
                 <div><input type="radio" name="accion" value="LM" id="lm" /> LM</label></div>
                 <div><input type="radio" name="accion" value="Omision" id="omision" /> Omisión</label></div>
                 <div></div>
@@ -182,9 +182,6 @@
         </table>
     </footer>
 
-    <script src="js/main.js"></script>
-</body>
-</html>
     <script src="js/main.js"></script>
 </body>
 </html>
