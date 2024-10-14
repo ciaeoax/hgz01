@@ -58,6 +58,11 @@ async function submitForm() {
         document.getElementById('submit').disabled = false;
         return;
     }
+    if (document.getElementById('matriculaOpo').value.length != 8){
+        alert('Ingrese una Matricula correcta: 8 dígitos.');
+        document.getElementById('submit').disabled = false;
+        return;
+    }
     if (document.getElementById('servicio').value=="Otro"){
         serviciovalue = document.getElementById('serviciotxt').value;
         if (serviciovalue == ''){
@@ -82,7 +87,7 @@ async function submitForm() {
     const selected_ind = Array.from(indicaciones).some(indicacion => indicacion.checked);
     const values_ind = Array.from(indicaciones).filter(indicacion => indicacion.checked).map(indicacion => indicacion.value.toUpperCase());
     if (!selected_ind){
-        alert('Seleccione al menos una indicación.')
+        alert('Seleccione al menos una indicación.');
         document.getElementById('submit').disabled = false;
         return;
     }
