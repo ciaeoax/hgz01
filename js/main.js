@@ -83,6 +83,7 @@ async function submitForm() {
     const values_ind = Array.from(indicaciones).filter(indicacion => indicacion.checked).map(indicacion => indicacion.value.toUpperCase());
     if (!selected_ind){
         alert('Seleccione al menos una indicación.')
+        document.getElementById('submit').disabled = false;
         return;
     }
     //console.log(values_ind);
