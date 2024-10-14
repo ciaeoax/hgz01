@@ -1,5 +1,7 @@
+valor= 1;
 document.getElementById('categoria').addEventListener('change', function(event){
     initTime = new Date();
+    console.log('Hora de inicio:', initTime.toLocaleString('es-mx'));
 });
 document.getElementById('omision').addEventListener('change', function(event){
     document.getElementById('guantes').disabled = false;
@@ -35,8 +37,7 @@ document.getElementById('categoria').addEventListener('change', function(event){
 
     }
 });
-document.getElementById('dataForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+async function submitForm() {
     document.getElementById('submit').disabled = true;
     if (typeof initTime === 'undefined'){
         alert('Cambie Categoría a otro valor y regrese al valor original.');
@@ -72,7 +73,9 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
         }
     }else{
         categoriavalue = document.getElementById('categoria').value;
-    }    
+    }
+            //window.confirm("Se registrará otra oportunidad a la anterior?");
+
     endTime = new Date();
     var time = endTime - initTime;
     var minutes = Math.floor(time/(1000*60)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
@@ -91,37 +94,61 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
         time: duracion,
         matricula2: document.getElementById('matriculaOpo').value
     };
-    //console.log(time, duracion);
-    fetch('https://script.google.com/macros/s/AKfycbzYmI-LG5Bo9bkmiMeFtaQVNhO26sAfmoWl9Ye8XhnfPN3dM57uAc7HOUBIuUl6YxtH/exec', { // Replace with your Web App URL
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        mode: 'no-cors',
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.text())
-    .then(data => {
-        alert('Información registrada correctamente.');
-        console.log('Exito:', serviciovalue, categoriavalue);
-        document.getElementById('categoria').value = '';
-        document.getElementById('guantes').checked = false;
-        document.querySelector("input[name=indicacion]:checked").checked = false;
-        document.querySelector("input[name=accion]:checked").checked = false;
-        document.getElementById('categoriatag').hidden = true;
-        document.getElementById('categoriatxt').hidden = true;
-        document.getElementById('categoriatxt').value = '';        
-        document.getElementById('matriculaOpo').value = '';
-    })
-    .catch((error) => {
-        console.error('Error:', formData);
-        alert('An error occurred while submitting the form.');
-    });
-        document.getElementById('submit').disabled = false;
-});
+    try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzYmI-LG5Bo9bkmiMeFtaQVNhO26sAfmoWl9Ye8XhnfPN3dM57uAc7HOUBIuUl6YxtH/exec', { // Replace with your Google Apps Script URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            for (var i = 1; i <= 8; i++) {
+                document.getElementById(i.toString()).checked = false;
+                document.getElementById(i.toString()).disabled = false;
+            }
+            console.log('Data saved and received:', result.data[0]["oportunidad"]);
+            //document.getElementById('result').textContent = JSON.stringify(result.data, null, 2);
+            alert('Información registrada correctamente.');
+            //console.log('Exito:', serviciovalue, categoriavalue);
+            //document.getElementById('categoria').value = '';
+            document.getElementById('guantes').checked = false;
+            document.querySelector("input[name=indicacion]:checked").checked = false;
+            document.querySelector("input[name=accion]:checked").checked = false;
+            document.getElementById('categoriatag').hidden = true;
+            document.getElementById('categoriatxt').hidden = true;
+            document.getElementById('categoriatxt').value = '';        
+            //document.getElementById('matriculaOpo').value = '';
+            valor = valor + 1;
+            document.getElementById('submit').disabled = false;
+            for (var i = 1; i <= result.data.length; i++) {
+                document.getElementById(i.toString()).checked = true;
+                document.getElementById(i.toString()).disabled = true;
+            }
+            document.getElementById((result.data.length+1).toString()).checked = true;
+            for (var i = result.data.length+2; i <= 8; i++) {
+                document.getElementById(i.toString()).disabled = true;
+            }
+        } else {
+            console.error('Error:', result.message);
+            document.getElementById('result').textContent = `Error: ${result.message}`;
+        }
+    } catch (error) {
+        console.error('Error submitting data:', error);
+        document.getElementById('result').textContent = `Error: ${error.message}`;
+    }
+}
 document.getElementById('dataForm').addEventListener('reset', function(event){
     document.getElementById('serviciotag').hidden = true;
-    document.getElementById('serviciotxt').hidden = true
-    document.getElementById('categoriatag').hidden = true
-    document.getElementById('categoriatxt').hidden = true
+    document.getElementById('serviciotxt').hidden = true;
+    document.getElementById('categoriatag').hidden = true;
+    document.getElementById('categoriatxt').hidden = true;
+    document.getElementById('hospital').value = "";
 });
