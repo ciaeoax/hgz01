@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HGZ 01 - Oaxaca</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <h2 align="center">Formulario de Observación</h2>
-    <h5 align="center"><script type="text/javascript">var timestamp = new Date();document.write(timestamp.toLocaleString("es-mx"));</script></h5>
+    <h2 align="center" >Formulario de Observación</h2>
+    <h5 align="center" ><script type="text/javascript">var timestamp = new Date();document.write(timestamp.toLocaleString("es-mx"));</script></h5>
+    <!---<center><select id="hospital" style="max-width: 600px; align-items: center; margin: auto;" required>
+        <option style="display:none"></option>
+        <option value='HGZ 01'>HGZ 01</option>
+        <option value="HGZMF 02">HGZMF 02</option>
+        <option value="HGZ 03">HGZ 03</option>
+        <option value="HGSMF 41">HGSMF 41</option>
+    </select></center> --->
     <div class="form-container">
-        <form id="dataForm">
+        <form id="dataForm" onsubmit="event.preventDefault(); submitForm();">
             <div class="form-group">
                 <label for="turno">Turno:</label>
                 <select id="turno" name="turno" required> <!-- LISTA DESPEGABLE DE TURNOS  -->
@@ -52,21 +60,40 @@
                     <option value="Urgencias">Urgencias</option>
                     <option value="Otro">Otro</option>
                 </select>
+            </div>     
+            <div class="form-group">                
                 <label id="serviciotag" for="otroServicio" style="margin-left: 10px;" hidden>Especifique:</label>
                 <input id="serviciotxt" type="text" name="otroServicio" placeholder="Otro servicio: " hidden>
-            </div>     
+            </div>
             
             <div class="form-group">
                 <fieldset class="field2"> <!-- CUADRO CON OBSERVADOR  -->
                     <legend>OBSERVADOR</legend> 
                     <div>
-                        <input class="observador" type="text" id="nombre" name="nombre" placeholder="Nombre" style="width:60%" required>
+                        <input class="observador" type="text" id="nombre" name="nombre" placeholder="Nombre" style="width:55%" required>
                         <input class="observador" type="number" id="matricula" name="matricula" placeholder="Matrícula" style="width:35%" required>
                     </div>
                 </fieldset>
             </div>
 
-            <h4 align="center">OPORTUNIDAD</h4>
+            <hr class="line" color='#00594c' width=110% size="10px">
+
+            <center>
+            <div class="form-group" style="margin-top:20PX; margin-bottom: 10px; align-items: center;">
+                <fieldset class="field2">
+                    <label for="oportunidad">OPORTUNIDAD: </label>
+                    <input id="1" type="checkbox" name="oportunidad" checked>  1
+                    <input id="2" type="checkbox" name="oportunidad" disabled>  2
+                    <input id="3" type="checkbox" name="oportunidad" disabled>  3
+                    <input id="4" type="checkbox" name="oportunidad" disabled>  4
+                    <input id="5" type="checkbox" name="oportunidad" disabled>  5
+                    <input id="6" type="checkbox" name="oportunidad" disabled>  6
+                    <input id="7" type="checkbox" name="oportunidad" disabled>  7
+                    <input id="8" type="checkbox" name="oportunidad" disabled>  8                    
+                </fieldset>
+            </div>
+            </center>
+
             <div class="form-group">
                 <label for="categoria">Categoría:</label>
                 <select id ="categoria" name="categoria" required> <!-- LISTA DESPLEGABLE CON CATEGORIAS  -->
@@ -75,6 +102,8 @@
                     <option name="categoria" value="Camillero">Camillero</option>
                     <option name="categoria" value="Conservacion">Conservación</option>
                     <option name="categoria" value="Enfermera">Enfermera</option>
+                    <option name="categoria" value="Estudiante">Estudiante</option>
+                    <option name="categoria" value="Familiar">Familiar</option>
                     <option name="categoria" value="Inhaloterapeuta">Inhaloterapeuta</option>
                     <option name="categoria" value="Intendencia">Intendencia</option>
                     <option name="categoria" value="Laboratorista">Laboratorista</option>
@@ -86,11 +115,14 @@
                     <option name="categoria" value="Trabajador Social">Trabajador Social</option>
                     <option name="categoria" value="Otro">Otro</option>
                 </select>
+            </div>
+            <div class="form-group">                
                 <label id="categoriatag" for="otroCategoria" style="margin-left: 10px;" hidden>Especifique:</label>
                 <input id="categoriatxt" type="text" name="otroCategoria" placeholder="Otra categoría: " hidden>
             </div>
-            <div class="form-group">
-                <input id="matriculaOpo" type="number" name="matriculaOportunidad" placeholder="matricula" style="width: 50%; margin-bottom: 20px;" required>
+
+            <div class="form-group" style="width: 35%; margin-right: 50px; margin-left: auto; margin-bottom: 20px;">
+                <input id="matriculaOpo" type="number" name="matriculaOportunidad" placeholder="Matrícula a observar" required>
             </div> 
             
             <fieldset id="field1" class="field1"> <!-- CUADRO CON INDICACIONES -->
@@ -116,6 +148,8 @@
             </div>
         </form>
     </div>
+
+    <div id="result"></div>
 
     <footer style="max-width: 650px; align-items: center; margin: auto; font-size: 12px;"> <!-- FOOTER CON ESPECIFICACIONES DE NOMENCLATURAS  -->
         <table style="width: 100%; text-align: left;">
